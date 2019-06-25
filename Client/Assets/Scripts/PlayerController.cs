@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	private const float BASE_SPEED = 10.0f; // 移動速度の基本値
+    [SerializeField] private const float BASE_SPEED = 10.0f; // 移動速度の基本値
     [SerializeField] public float speed = 10.0f; // 現在の速度
 
     public event Action<int> OnCollision;
 
-	private const float CHARGE_SPEED = 0.5f; // 溜める速度
-	private const float MAX_ENERGY = 50.0f;  // 溜める最大値
+    [SerializeField] private const float CHARGE_SPEED = 0.5f; // 溜める速度
+
+    [SerializeField] private const float MAX_ENERGY = 50.0f;  // 溜める最大値
 	[SerializeField] public float energy = 0.0f; // 溜めた力
 
 	void Start()
