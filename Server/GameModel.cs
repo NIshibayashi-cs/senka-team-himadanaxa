@@ -41,7 +41,7 @@ namespace WebSocketSample.Server
         {
             Console.WriteLine(">> Login");
 
-            var player = new Player(uidCounter++, loginPayload.Name, new Position(0f, 0f, 0f), 0);
+            var player = new Player(uidCounter++, loginPayload.Name, new Position(0f, 0f, 0f), 0, 1.0f);
             lock (players)
             {
                 players[player.Uid] = player;
@@ -75,7 +75,13 @@ namespace WebSocketSample.Server
             if (items.ContainsKey(itemId))
             {
                 items.Remove(itemId);
-                players[getItemPayload.PlayerId].Score++;
+                players[getItemPayload.PlayerId].Scale += 1.0f;
+
+                // スケールの変更
+                if(players[getItemPayload.PlayerId].Scale >= 10.0f)
+                {
+                    players[getItemPayload.PlayerId].Scale = 10.0f;
+                }                
 
                 var deleteItemRpc = new DeleteItem(new DeleteItemPayload(itemId));
                 var deleteItemJson = JsonConvert.SerializeObject(deleteItemRpc);
@@ -120,7 +126,7 @@ namespace WebSocketSample.Server
                 {
                     if (!player.isPositionChanged) continue;
 
-                    var playerRpc = new RPC.Player(player.Uid, player.Position, player.Score);
+                    var playerRpc = new RPC.Player(player.Uid, player.Position, player.Score, player.Scale);
                     movedPlayers.Add(playerRpc);
                     player.isPositionChanged = false;
                 }

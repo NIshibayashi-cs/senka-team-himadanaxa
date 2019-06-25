@@ -169,7 +169,7 @@ public class MainController : MonoBehaviour
         {
             if (rpcPlayer.Id == playerId)
             {
-                playerObj.transform.localScale = CalcPlayerScale(rpcPlayer.Score);
+                playerObj.transform.localScale = CalcPlayerScale((int)rpcPlayer.Scale);
                 continue;
             }
 
@@ -179,7 +179,7 @@ public class MainController : MonoBehaviour
             {
                 // 既にGameObjectがいたら更新
                 otherPlayerObjs[rpcPlayer.Id].transform.position = otherPlayerPoision;
-                otherPlayerObjs[rpcPlayer.Id].transform.localScale = CalcPlayerScale(rpcPlayer.Scale);
+                otherPlayerObjs[rpcPlayer.Id].transform.localScale = CalcPlayerScale((int)rpcPlayer.Scale);
             }
             else
             {

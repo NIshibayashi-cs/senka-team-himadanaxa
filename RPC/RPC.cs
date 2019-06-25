@@ -138,11 +138,12 @@ namespace WebSocketSample.RPC
         public int Score;
         public float Scale;
 
-        public Player(int id, Position position, int score)
+        public Player(int id, Position position, int score, float scale)
         {
             this.Id = id;
             this.Position = position;
             this.Score = score;
+            this.Scale = scale;
         }
     }
 
