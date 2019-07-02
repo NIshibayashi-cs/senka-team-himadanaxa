@@ -141,21 +141,84 @@ namespace WebSocketSample.Server
             {
                 if (players.Count == 0) return;
 
-                var randomX = random.Next(-5, 5);
-                var randomZ = random.Next(-5, 5);
-                var position = new Position(randomX, 0.5f, randomZ);
-                var item = new Item(uidCounter++, position);
-                lock (items)
+                var m_random = random.Next(0, 4);
+
+                if (m_random == 0)
                 {
-                    items.Add(item.Id, item);
+                    var randomX = random.Next(-9, 9);
+                    var randomZ = random.Next(-9, 9);
+                    var position = new Position(randomX, 0.5f, randomZ);
+                    var item = new Item(uidCounter++, position);
+                    lock (items)
+                    {
+                        items.Add(item.Id, item);
+                    }
+
+                    var rpcItem = new RPC.Item(item.Id, item.Position);
+                    var spawnRpc = new Spawn(new SpawnPayload(rpcItem));
+                    var spawnJson = JsonConvert.SerializeObject(spawnRpc);
+                    broadcast(spawnJson);
+
                 }
 
-                var rpcItem = new RPC.Item(item.Id, item.Position);
-                var spawnRpc = new Spawn(new SpawnPayload(rpcItem));
-                var spawnJson = JsonConvert.SerializeObject(spawnRpc);
-                broadcast(spawnJson);
+
+                if (m_random == 1)
+                {
+                    var randomX = random.Next(-33, -15);
+                    var randomZ = random.Next(-9, 9);
+                    var position = new Position(randomX, 0.5f, randomZ);
+                    var item = new Item(uidCounter++, position);
+                    lock (items)
+                    {
+                        items.Add(item.Id, item);
+                    }
+
+                    var rpcItem = new RPC.Item(item.Id, item.Position);
+                    var spawnRpc = new Spawn(new SpawnPayload(rpcItem));
+                    var spawnJson = JsonConvert.SerializeObject(spawnRpc);
+                    broadcast(spawnJson);
+
+                }
+
+                if (m_random == 2)
+                {
+                    var randomX = random.Next(-9, 9);
+                    var randomZ = random.Next(18, 33);
+                    var position = new Position(randomX, 0.5f, randomZ);
+                    var item = new Item(uidCounter++, position);
+                    lock (items)
+                    {
+                        items.Add(item.Id, item);
+                    }
+
+                    var rpcItem = new RPC.Item(item.Id, item.Position);
+                    var spawnRpc = new Spawn(new SpawnPayload(rpcItem));
+                    var spawnJson = JsonConvert.SerializeObject(spawnRpc);
+                    broadcast(spawnJson);
+
+                }
+
+
+                if (m_random == 3)
+                {
+                    var randomX = random.Next(-33, -15);
+                    var randomZ = random.Next(18, 33);
+                    var position = new Position(randomX, 0.5f, randomZ);
+                    var item = new Item(uidCounter++, position);
+                    lock (items)
+                    {
+                        items.Add(item.Id, item);
+                    }
+
+                    var rpcItem = new RPC.Item(item.Id, item.Position);
+                    var spawnRpc = new Spawn(new SpawnPayload(rpcItem));
+                    var spawnJson = JsonConvert.SerializeObject(spawnRpc);
+                    broadcast(spawnJson);
+
+                }
 
                 Console.WriteLine("<< Spawn");
+
             };
             timer.Start();
         }
