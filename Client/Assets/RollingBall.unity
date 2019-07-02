@@ -5341,11 +5341,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectAddress: ws://10.192.113.93:5678
-  playerPrefab: {fileID: 1000010242128840, guid: b7ee01bb7113a428d83cd4c2b2dcff8f,
+  playerPrefab: {fileID: 8655457248686833861, guid: 9bf091b717bf8704fb8b1eea1372644b,
     type: 3}
-  otherPlayerPrefab: {fileID: 1000013530691402, guid: 8da97395e89154d00aeaf2c9abf021e2,
+  otherPlayerPrefab: {fileID: 4081139036392565732, guid: 8da97395e89154d00aeaf2c9abf021e2,
     type: 3}
-  itemPrefab: {fileID: 1800889081646452, guid: 94eca55f9d12f4d9eb776b8feae42ae5, type: 3}
+  itemPrefab: {fileID: 8224388956793934659, guid: 286bd8390b90b4c4da2cc2a4387975c0,
+    type: 3}
 --- !u!4 &2134770747
 Transform:
   m_ObjectHideFlags: 0
