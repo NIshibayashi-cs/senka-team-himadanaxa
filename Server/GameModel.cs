@@ -56,6 +56,27 @@ namespace WebSocketSample.Server
             Environment(senderId);
         }
 
+        public void OnLogout(string senderId, LogoutPayload logoutPayload)
+        {
+            Console.WriteLine(">> Logout");
+
+            // 生成してる、削除に変更
+            //var player = new Player(uidCounter++, logoutPayload.Name, new Position(0f, 0f, 0f), 0);
+            //lock (players)
+            //{
+            //    players[player.Uid] = player;
+            //}
+
+            //var logoutResponseRpc = new LogoutResponse(new LogoutResponsePayload());
+            //var logoutResponseJson = JsonConvert.SerializeObject(logoutResponseRpc);
+            //sendTo(logoutResponseJson, senderId);
+
+            //Console.WriteLine(player.ToString() + " logout.");
+            Console.WriteLine(" logout.");
+
+            //Environment(senderId);
+        }
+
         public void OnPlayerUpdate(string senderId, PlayerUpdatePayload playerUpdatePayload)
         {
             Console.WriteLine(">> PlayerUpdate");
