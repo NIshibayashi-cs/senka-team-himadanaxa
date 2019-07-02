@@ -107,6 +107,7 @@ public class MainController : MonoBehaviour
     void Update()
     {
         UpdatePosition();
+        UpdateScale();
     }
 
     void OnDestroy()
@@ -156,6 +157,12 @@ public class MainController : MonoBehaviour
         webSocket.Send(jsonMessage);
     }
 
+    void UpdateScale()
+    {
+        if (playerObj == null) return;
+        
+    }
+
     void OnSync(RPC.SyncPayload payload)
     {
         Debug.Log("<< Sync");
@@ -163,7 +170,7 @@ public class MainController : MonoBehaviour
         {
             if (rpcPlayer.Id == playerId)
             {
-                playerObj.transform.localScale = CalcPlayerScale(rpcPlayer.Score);
+                playerObj.transform.localScale = Vector3.one * rpcPlayer.Scale;
                 continue;
             }
 
@@ -173,7 +180,7 @@ public class MainController : MonoBehaviour
             {
                 // 既にGameObjectがいたら更新
                 otherPlayerObjs[rpcPlayer.Id].transform.position = otherPlayerPoision;
-                otherPlayerObjs[rpcPlayer.Id].transform.localScale = CalcPlayerScale(rpcPlayer.Score);
+                otherPlayerObjs[rpcPlayer.Id].transform.localScale = Vector3.one * rpcPlayer.Scale;
             }
             else
             {
