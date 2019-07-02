@@ -9,13 +9,15 @@ namespace WebSocketSample.Server
         public Position Position;
         public int Score;
         public bool isPositionChanged;
+        public float Scale;
 
-        public Player(int uid, string name, Position position, int score)
+        public Player(int uid, string name, Position position, int score, float scale)
         {
             Uid = uid;
             Name = name;
             Position = position;
             Score = score;
+            Scale = scale;
         }
 
         public void SetPosition(Position position)
@@ -37,5 +39,7 @@ namespace WebSocketSample.Server
                 Score
             );
         }
+
+
     }
 }
