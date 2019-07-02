@@ -159,7 +159,8 @@ public class MainController : MonoBehaviour
 
     void UpdateScale()
     {
-        if (playerObj == null) return;       
+        if (playerObj == null) return;
+        
     }
 
     void OnSync(RPC.SyncPayload payload)
@@ -169,7 +170,7 @@ public class MainController : MonoBehaviour
         {
             if (rpcPlayer.Id == playerId)
             {
-                playerObj.transform.localScale = CalcPlayerScale((int)rpcPlayer.Scale);
+                playerObj.transform.localScale = Vector3.one * rpcPlayer.Scale;
                 continue;
             }
 
@@ -179,7 +180,7 @@ public class MainController : MonoBehaviour
             {
                 // 既にGameObjectがいたら更新
                 otherPlayerObjs[rpcPlayer.Id].transform.position = otherPlayerPoision;
-                otherPlayerObjs[rpcPlayer.Id].transform.localScale = CalcPlayerScale((int)rpcPlayer.Scale);
+                otherPlayerObjs[rpcPlayer.Id].transform.localScale = Vector3.one * rpcPlayer.Scale;
             }
             else
             {
