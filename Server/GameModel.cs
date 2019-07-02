@@ -11,6 +11,24 @@ namespace WebSocketSample.Server
         Dictionary<int, Player> players = new Dictionary<int, Player>();
         Dictionary<int, Item> items = new Dictionary<int, Item>();
 
+        public struct Spawn_Position
+        {
+            public float x;
+            public float y;
+            public float z;
+
+            public Spawn_Position(float x, float y, float z)
+            {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+            }
+        };
+
+        Spawn_Position[] spawn_point = new Spawn_Position[4];
+        //spawn_point[0] = new Spawn_Position(0.0f,0.0f,0.0f);
+
+
         int uidCounter;
 
         public event Action<string, string> sendTo;
@@ -18,6 +36,11 @@ namespace WebSocketSample.Server
 
         public GameModel()
         {
+            spawn_point[0] = new Spawn_Position(0.0f, 10.0f, 0.0f);
+            spawn_point[1] = new Spawn_Position(0.0f, 10.0f, 25.0f);
+            spawn_point[2] = new Spawn_Position(-25.0f, 10.0f, 0.0f);
+            spawn_point[3] = new Spawn_Position(0.0f, 10.0f, 0.0f);
+
             StartSpawnTimer();
         }
 
