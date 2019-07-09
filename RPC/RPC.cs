@@ -60,7 +60,11 @@ namespace WebSocketSample.RPC
             this.Position = position;
         }
     }
+    
 
+    /// <summary>
+    /// ///////////////////////////////////////////////
+    /// </summary>
     [System.Serializable]
     public class Login
     {
@@ -106,7 +110,57 @@ namespace WebSocketSample.RPC
             this.Id = id;
         }
     }
+    //////////////////////////////////////////////////////////
+    /// ログアウト用に追加
+    //////////////////////////////////////////////////////////
+    [System.Serializable]
+    public class Logout
+    {
+        public string Method = "logout";
+        public LogoutPayload Payload;
 
+        public Logout(LogoutPayload payload)
+        {
+            this.Payload = payload;
+        }
+    }
+
+    [System.Serializable]
+    public class LogoutPayload
+    {
+        public string Name;
+
+        public LogoutPayload(string name)
+        {
+            this.Name = name;
+        }
+    }
+
+    //[System.Serializable]
+    //public class LogoutResponse
+    //{
+    //    public string Method = "logout_response";
+    //    public LogoutResponsePayload Payload;
+
+    //    public LogoutResponse(LogoutResponsePayload payload)
+    //    {
+    //        this.Payload = payload;
+    //    }
+    //}
+
+    //[System.Serializable]
+    //public class LogoutResponsePayload
+    //{
+    //    public int Id;
+
+    //    public LogoutResponsePayload(int id)
+    //    {
+    //        this.Id = id;
+    //    }
+    //}
+
+    /// //////////////////////////////////////////////////////
+    /// ここまで
     [System.Serializable]
     public class Sync
     {

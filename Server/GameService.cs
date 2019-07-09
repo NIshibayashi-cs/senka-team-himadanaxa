@@ -10,6 +10,7 @@ namespace WebSocketSample.Server
     {
         public event Action<string> OnPing;
         public event Action<string, LoginPayload> OnLogin;
+        public event Action<string, LogoutPayload> OnLogout;
         public event Action<string, PlayerUpdatePayload> OnPlayerUpdate;
         public event Action<string, GetItemPayload> OnGetItem;
         public event Action<string, CollisionPayload> OnCollision;
@@ -42,6 +43,12 @@ namespace WebSocketSample.Server
                     {
                         var loginPayload = JsonConvert.DeserializeObject<Login>(e.Data).Payload;
                         OnLogin(ID, loginPayload);
+                        break;
+                    }
+                case "logout":
+                    {
+                        var logoutPayload = JsonConvert.DeserializeObject<Logout>(e.Data).Payload;
+                        OnLogout(ID, logoutPayload);
                         break;
                     }
                 case "player_update":
