@@ -39,7 +39,7 @@ namespace WebSocketSample.Server
             spawn_point[0] = new Spawn_Position(0.0f, 10.0f, 0.0f);
             spawn_point[1] = new Spawn_Position(0.0f, 10.0f, 25.0f);
             spawn_point[2] = new Spawn_Position(-25.0f, 10.0f, 0.0f);
-            spawn_point[3] = new Spawn_Position(0.0f, 10.0f, 0.0f);
+            spawn_point[3] = new Spawn_Position(-25.0f, 10.0f, 25.0f);
 
             StartSpawnTimer();
         }
@@ -64,7 +64,10 @@ namespace WebSocketSample.Server
         {
             Console.WriteLine(">> Login");
 
-            var player = new Player(uidCounter++, loginPayload.Name, new Position(0f, 0f, 0f), 0);
+            Random rand = new System.Random();
+            int result = rand.Next() % 4;
+            var pos = spawn_point[result];
+            var player = new Player(uidCounter++, loginPayload.Name, new Position(pos.x, pos.y, pos.z), 0);
             lock (players)
             {
                 players[player.Uid] = player;
