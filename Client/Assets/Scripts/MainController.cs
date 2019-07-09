@@ -18,6 +18,9 @@ public class MainController : MonoBehaviour
     [SerializeField]
     GameObject itemPrefab;
 
+    [SerializeField]
+    PlayerFollowCamera camera;
+
     GameObject playerObj;
     Vector3 previousPlayerObjPosition; // 前フレームでの位置
     int playerId;
@@ -66,6 +69,10 @@ public class MainController : MonoBehaviour
                         MainThreadExecutor.Enqueue(() => OnLoginResponse(loginResponse.Payload));
                         break;
                     }
+                //case "logout_response":
+                //    var logoutResponse = JsonUtility.FromJson<RPC.LogoutResponse>(eventArgs.Data);
+                //    MainThreadExecutor.Enqueue(() => OnLogoutResponse(logoutResponse.Payload));
+                //    break;
                 case "sync":
                     {
                         var syncMessage = JsonUtility.FromJson<RPC.Sync>(eventArgs.Data);
@@ -107,6 +114,12 @@ public class MainController : MonoBehaviour
     void Update()
     {
         UpdatePosition();
+        UpdateScale();
+    }
+
+    void OnApplicationQuit()
+    {
+        Logout();
     }
 
     void OnDestroy()
@@ -137,7 +150,39 @@ public class MainController : MonoBehaviour
             var collisionJson = JsonUtility.ToJson(collisionRpc);
             webSocket.Send(collisionJson);
         };
+
+        camera.player = playerObj.transform;
     }
+
+    void Logout()
+    {
+        var jsonMessage = JsonUtility.ToJson(new RPC.Logout(new RPC.LogoutPayload("PlayerName")));
+        // もでるなど、Plyer使ってるとこをさがせええええええええ
+
+        Debug.Log(jsonMessage);
+
+        webSocket.Send(jsonMessage);
+
+        var playerController = playerObj.GetComponent<PlayerController>();
+        playerController.OnLogout += (otherPlayerId) =>
+        {
+            var deletePlayer = playerObj.GetComponent<RPC.DeletePlayer>();
+            OnDeletePlayer(deletePlayer.Payload);
+        };
+        Debug.Log(">> Logout");
+    }
+
+    //void OnLogoutResponse(RPC.LogoutResponsePayload response)
+    //{
+    //    Debug.Log("<< LogoutResponse");
+    //    playerId = response.Id;
+    //    Debug.Log(playerId);
+    //    // プレイヤーの生成してる、ここでプレイヤーの削除？
+    //    //playerObj = Instantiate(playerPrefab, new Vector3(0.0f, 0.5f, 0.0f), Quaternion.identity) as GameObject;
+
+    //    // 生成した瞬間の当たり判定？
+
+    //}
 
     void UpdatePosition()
     {
@@ -156,6 +201,12 @@ public class MainController : MonoBehaviour
         webSocket.Send(jsonMessage);
     }
 
+    void UpdateScale()
+    {
+        if (playerObj == null) return;
+        
+    }
+
     void OnSync(RPC.SyncPayload payload)
     {
         Debug.Log("<< Sync");
@@ -163,7 +214,7 @@ public class MainController : MonoBehaviour
         {
             if (rpcPlayer.Id == playerId)
             {
-                playerObj.transform.localScale = CalcPlayerScale(rpcPlayer.Score);
+                playerObj.transform.localScale = Vector3.one * rpcPlayer.Scale;
                 continue;
             }
 
@@ -173,7 +224,7 @@ public class MainController : MonoBehaviour
             {
                 // 既にGameObjectがいたら更新
                 otherPlayerObjs[rpcPlayer.Id].transform.position = otherPlayerPoision;
-                otherPlayerObjs[rpcPlayer.Id].transform.localScale = CalcPlayerScale(rpcPlayer.Score);
+                otherPlayerObjs[rpcPlayer.Id].transform.localScale = Vector3.one * rpcPlayer.Scale;
             }
             else
             {

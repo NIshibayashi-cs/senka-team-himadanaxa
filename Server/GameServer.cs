@@ -23,6 +23,7 @@ namespace WebSocketSample.Server
                 var service = new GameService();
                 service.OnPing += model.OnPing;
                 service.OnLogin += model.OnLogin;
+                service.OnLogout += model.OnLogout;
                 service.OnPlayerUpdate += model.OnPlayerUpdate;
                 service.OnGetItem += model.OnGetItem;
                 service.OnCollision += model.OnCollision;
