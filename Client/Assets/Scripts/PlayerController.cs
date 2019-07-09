@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 
     public event Action<int> OnCollision;
 
+    public event Action<int> OnLogout;
+
     [SerializeField] private const float CHARGE_SPEED = 0.5f; // 溜める速度
 
     [SerializeField] private const float MAX_ENERGY = 50.0f;  // 溜める最大値
