@@ -18,6 +18,9 @@ public class MainController : MonoBehaviour
     [SerializeField]
     GameObject itemPrefab;
 
+    [SerializeField]
+    PlayerFollowCamera camera;
+
     GameObject playerObj;
     Vector3 previousPlayerObjPosition; // 前フレームでの位置
     int playerId;
@@ -147,6 +150,8 @@ public class MainController : MonoBehaviour
             var collisionJson = JsonUtility.ToJson(collisionRpc);
             webSocket.Send(collisionJson);
         };
+
+        camera.player = playerObj.transform;
     }
 
     void Logout()
