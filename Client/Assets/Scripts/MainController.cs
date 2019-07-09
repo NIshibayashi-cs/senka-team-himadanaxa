@@ -141,7 +141,7 @@ public class MainController : MonoBehaviour
         Debug.Log("<< LoginResponse");
         playerId = response.Id;
         Debug.Log(playerId);
-        playerObj = Instantiate(playerPrefab, new Vector3(0.0f, 0.5f, 0.0f), Quaternion.identity) as GameObject;
+        playerObj = Instantiate(playerPrefab, new Vector3(response.x, response.y, response.z), Quaternion.identity) as GameObject;
 
         var playerController = playerObj.GetComponent<PlayerController>();
         playerController.OnCollision += (otherPlayerId) =>

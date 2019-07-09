@@ -35,10 +35,10 @@ namespace WebSocketSample.Server
 
         public GameModel()
         {
-            spawn_point[0] = new Spawn_Position(0.0f, 10.0f, 0.0f);
-            spawn_point[1] = new Spawn_Position(0.0f, 10.0f, 25.0f);
-            spawn_point[2] = new Spawn_Position(-25.0f, 10.0f, 0.0f);
-            spawn_point[3] = new Spawn_Position(-25.0f, 10.0f, 25.0f);
+            spawn_point[0] = new Spawn_Position(0.0f, 13.0f, 0.0f);
+            spawn_point[1] = new Spawn_Position(0.0f, 13.0f, 25.0f);
+            spawn_point[2] = new Spawn_Position(-25.0f, 13.0f, 0.0f);
+            spawn_point[3] = new Spawn_Position(-25.0f, 13.0f, 25.0f);
 
             StartSpawnTimer();
             PlayerSmallerTimer();
@@ -67,13 +67,13 @@ namespace WebSocketSample.Server
             Random rand = new System.Random();
             int result = rand.Next() % 4;
             var pos = spawn_point[result];
-            var player = new Player(uidCounter++, loginPayload.Name, new Position(pos.x, pos.y, pos.z), 0);
+            var player = new Player(uidCounter++, loginPayload.Name, new Position(pos.x, pos.y, pos.z), 0, 1.0f);
             lock (players)
             {
                 players[player.Uid] = player;
             }
 
-            var loginResponseRpc = new LoginResponse(new LoginResponsePayload(player.Uid));
+            var loginResponseRpc = new LoginResponse(new LoginResponsePayload(player.Uid, pos.x, pos.y, pos.z));
             var loginResponseJson = JsonConvert.SerializeObject(loginResponseRpc);
             sendTo(loginResponseJson, senderId);
 
