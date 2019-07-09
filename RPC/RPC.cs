@@ -104,10 +104,15 @@ namespace WebSocketSample.RPC
     public class LoginResponsePayload
     {
         public int Id;
+        public float x, y, z;
 
-        public LoginResponsePayload(int id)
+        public LoginResponsePayload(int id, float _x, float _y, float _z)
         {
             this.Id = id;
+            this.x = _x;
+            y = _y;
+            z = _z;
+            
         }
     }
     //////////////////////////////////////////////////////////
