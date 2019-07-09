@@ -67,6 +67,11 @@ namespace WebSocketSample.Server
             //    players[player.Uid] = player;
             //}
 
+            lock (players)
+            {
+                players.Remove(logoutPayload.ID);
+            }
+
             //var logoutResponseRpc = new LogoutResponse(new LogoutResponsePayload());
             //var logoutResponseJson = JsonConvert.SerializeObject(logoutResponseRpc);
             //sendTo(logoutResponseJson, senderId);

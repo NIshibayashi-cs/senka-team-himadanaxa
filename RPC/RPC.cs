@@ -129,10 +129,12 @@ namespace WebSocketSample.RPC
     public class LogoutPayload
     {
         public string Name;
+        public int ID;
 
-        public LogoutPayload(string name)
+        public LogoutPayload(string name, int id)
         {
             this.Name = name;
+            this.ID = id;
         }
     }
 
